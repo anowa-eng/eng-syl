@@ -27,9 +27,9 @@ class onc_to_phon:
     def build_model(self):
 
         # orthographic and ipa input layers
-        ortho_inputs = Input(self.input_size, )
+        ortho_inputs = Input(shape=(self.input_size,))
         # first branch ortho
-        x = Embedding(self.max_feat_e, self.embed_dim, input_length=self.input_size)(ortho_inputs)
+        x = Embedding(self.max_feat_e, self.embed_dim)(ortho_inputs)
         x = Bidirectional(GRU(self.latent_dim, return_sequences=True, recurrent_dropout=0.2,
                               activity_regularizer=regularizers.l2(1e-5)), input_shape=(self.input_size, 1))(x)
         x = Bidirectional(GRU(self.latent_dim, return_sequences=True, recurrent_dropout=0.2,
